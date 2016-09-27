@@ -7,7 +7,7 @@ public class RobotApp {
 		// Test pushing
 		//more test echo
 		
-		// new thread
+		// new thread more
 	}
 
 }
