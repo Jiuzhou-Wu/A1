@@ -1,0 +1,96 @@
+Introduction to AI
+Assignment 1
+
+n*n board cleaning wich several obstacles and dirties 
+
+Robot Actions: 	Susck: 10 energy
+				Right: turn right 20 energy
+				Left:  turn left 20 energy
+				Move:  Move front 50 energy
+
+State (Position, Direction, Action)
+
+
+Print out: Total cost, Depth, Time
+
+
+-----------------------------------------------------------
+To do list: 
+	Code: 
+				-RobotApp.java :	-main method(generate grid to appropriate parameters and lauch a search 						method)
+
+									-function generateGrid:	-size of the grid
+															-obstacles positions
+															-dirt positions
+															-robot position 
+															-orientation(robot)
+									-function search:	- input parameter integer(1=DFS 2=BFS 3=A*)
+														- input parameter the grid(from generateGrid)
+														- return solution
+									-function printSolution:	-input parameter solution(from search)
+																-print out in the console
+
+				includes: 	1. A depth-first search implementation
+							2. A breadth-first search implementation
+							3. A* implementation with an appropriate heuristic
+
+
+	Report:	1. front page : name, course, assignment number
+			
+			2. Answer questions:	-state representation
+									-initial state, goal state, and path cost 
+									-braching factor
+									-proposed heuristic (justify)
+									-environment properties (justify)
+
+			3. Implementation question:
+							- room/grid representation
+							- dirt & obstacles representation
+							- state representation
+
+			4. Code description
+
+			5. Coparativee analysis (BFS,DFS,A*) (depth, path cost, time taken, worst time and space complexity)
+
+// edit by Ed
+
+General questions
+
+5. Describe the environment properties. Justify your answers
+	This problem is a
+		i. 	fully observable
+			Assume that the robot will recieve the big picture of the room when it was created. Since in our search function, we already konw the whole map.
+
+		ii.	static
+			we assume that the position of dirt and obstacle is static and also the number of dirt and obstacle
+		iii.deterministic
+			we assume that if the robot suck then dirt get collected so there wont be anything is not predictable 
+		iv. discrete 
+			we conside the environment as a gird so each cell is independent.
+
+4. What is the proposed heuristic? Justify your choice.
+
+1. How do you represent a state in this problem?
+		(can i see any cells which i have never been)
+		yes, im not done
+		no , im done.
+2. What is the initial state, goal state and path cost in this problem?
+	
+	initial state: (# of dirt, robotPosition, robotDirection, )
+	
+	goal    state: 
+	
+	action: 
+
+	path    cost :
+
+3. What is the branching factor in this problem?
+	directions:
+		north
+		south
+		west
+		east
+
+
+
+// end of edit ed
