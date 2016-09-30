@@ -1,12 +1,32 @@
 
 public class Cell {
-	private boolean obstable;
+	private boolean obstacle;
 	private boolean dirt;
 	
-	public Cell(boolean ob, boolean dirt){
-		this.obstable = ob;
-		this.dirt = dirt;
+	public Cell(){
+		obstacle = false;
+		dirt = false;
 	}
 	
+	public Cell(boolean ob, boolean dirt){
+		this.setObstacle(ob);
+		this.setDirt(dirt);
+	}
+	
+	public boolean isDirt() {
+		return dirt;
+	}
+
+	public void setDirt(boolean dirt) {
+		this.dirt = dirt;
+	}
+
+	public boolean isObstacle() {
+		return obstacle;
+	}
+
+	public void setObstacle(boolean obstacle) {
+		this.obstacle = obstacle;
+	}
 	
 }
