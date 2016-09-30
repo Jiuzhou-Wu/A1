@@ -1,10 +1,12 @@
 
 public class Cell {
-	boolean obstable;
-	boolean dirt;
+	private boolean obstable;
+	private boolean dirt;
 	
 	public Cell(boolean ob, boolean dirt){
 		this.obstable = ob;
 		this.dirt = dirt;
 	}
+	
+	
 }

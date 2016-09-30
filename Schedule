@@ -1,23 +1,22 @@
-Works need to be done:
-	1. Create Grid
-			1. generate matrix (cell[][])
-			2. generate position id array (for obstacle & dirts)
-			3. highlight robot
+Works need to be determined: 
+	1. class <robot> 
 	
 	2. Three search function
-			
-			- BFS
-			- DFS
-			- A*
-			
-		Solution: double linked list?	
-		
-	3. Print function
-			
+		- A*
 	
-
-
-
+	3. Print function
+	
+	4. nest a timing function in main
+	
+TODO:
+	1. class <cell>
+	2. class <doubleLinkedlist>
+		 inner node contains energy cost of initial to current		 
+	3. class <queue>, class <stack>
+	4. generate matrix (cell[][])
+	5. generate position id array (for obstacle & dirts)
+	6. - BFS, - DFS
+	
 
 
 
