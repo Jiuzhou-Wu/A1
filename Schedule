@@ -1,0 +1,28 @@
+Works need to be done:
+	1. Create Grid
+			1. generate matrix (cell[][])
+			2. generate position id array (for obstacle & dirts)
+			3. highlight robot
+	
+	2. Three search function
+			
+			- BFS
+			- DFS
+			- A*
+			
+		Solution: double linked list?	
+		
+	3. Print function
+			
+	
+
+
+
+
+
+
+
+Jiuhzou:
+
+
+Haolong:
