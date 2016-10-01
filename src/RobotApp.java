@@ -10,6 +10,15 @@ public class RobotApp {
 		//take user's input for obstacle
 		//generator
 		//
+	Cell test = new Cell();
+	
+	int[] tempId = {1, 1};
+	
+	test.setId(tempId);
+	System.out.println(test.getId()[0]);
+	System.out.println(test.getId()[1]);
+	
+	//System.out.println(test);
 	
 	//
 		

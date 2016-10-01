@@ -10,6 +10,7 @@ Works need to be determined:
 	
 TODO:
 	1. class <cell>
+		class <Board>
 	2. class <doubleLinkedlist>
 		 inner node contains energy cost of initial to current		 
 	3. class <queue>, class <stack>
