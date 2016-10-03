@@ -23,9 +23,9 @@ public class Cell {
 		return id;
 	}
 	
-	public void setId(int[] _id){
-		id[0] = _id[0];
-		id[1] = _id[1];
+	public void setId(int x, int y){
+		id[0] = x;
+		id[1] = y;
 		return;
 	}
 	public boolean isDirt() {
