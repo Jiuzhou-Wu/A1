@@ -14,9 +14,11 @@ public class Cell {
 	}
 	
 	//we should never use this constructor 
-	public Cell(boolean ob, boolean dirt){
+	public Cell(boolean ob, boolean dirt, int[] pos){
 		this.setObstacle(ob);
 		this.setDirt(hasDirt);
+		this.id[0] = pos[0];
+		this.id[1] = pos[1];
 	}
 	
 	public int[] getId(){
