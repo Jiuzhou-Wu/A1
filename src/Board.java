@@ -7,8 +7,9 @@ public class Board{
 	
 	private Cell robot;
 	private char robotDirection;
+	//Constructor **************************************************
 	//generate a board with size n*n
-	public Board(int n, int robX, int robY, char direction){
+	public Board(int size, int robX, int robY, char direction){
 		
 		switch(direction){
 		case 'w':
@@ -17,29 +18,29 @@ public class Board{
 			break;
 		case 'n':
 			break;
-		case 'r':
+		case 's':
 			break;
 		default:
 			System.out.println("Invalid direction to initialize the board");
 			System.exit(-1);
 		}
+		robotDirection = direction;
 		
-		this.size = n;
-		board = new Cell[n][n];
+		this.size = size;
+		board = new Cell[size][size];
 		//assign id to each cell
-		for(int i = 0; i < size; i++){
-			for(int j = 0; j < size; j++){
+		for(int i = 0; i < this.size; i++){
+			for(int j = 0; j < this.size; j++){
 				//int[] tempId = {i, j};
 				board[i][j] = new Cell();
 				board[i][j].setId(i, j);
 			}
 		}
-		
 		robot = new Cell();
 		robot.setId(robX, robY);
-		
-		robotDirection = direction;
 	}
+	
+	//Functions ******************************************************
 	
 	public int[] getRobotPosition(){
 		return robot.getId();
@@ -52,10 +53,10 @@ public class Board{
 	public Cell getAt(int i, int j){
 		//check for parameters
 		//board[0..n-1][0..n-1]
-		if (i >= size || j >= size){
-			//System.out.println("Can't found cell at position ("+ i + ", "+ j+ ");");
-			return new Cell();
-		}		
+//		if (i >= size || j >= size){
+//			//System.out.println("Can't found cell at position ("+ i + ", "+ j+ ");");
+//			return new Cell();
+//		}		
 		//if parameters are valid
 		return board[i][j];
 	}
