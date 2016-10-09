@@ -84,7 +84,7 @@ public class Board{
 		int numChangeDirection = 0;
 		switch(action){
 		case 'w'://to left
-			if (robot.getId()[0] == 0)
+			if (robot.getId()[1] == 0)
 				return 0;
 			else{
 				switch(robDirection){
@@ -98,11 +98,11 @@ public class Board{
 				break;
 				default: return 0;
 				}
-				robot.setId(robot.getId()[0]-1, robot.getId()[1]);
+				robot.setId(robot.getId()[0], robot.getId()[1]-1);
 			}
 			break;
 		case 'e'://to right
-			if (robot.getId()[0] == this.size-1)
+			if (robot.getId()[1] == this.size-1)
 				return 0;
 			else{
 				switch(robDirection){
@@ -116,11 +116,11 @@ public class Board{
 				break;
 				default: return 0;
 				}
-				robot.setId(robot.getId()[0]+1, robot.getId()[1]);
+				robot.setId(robot.getId()[0], robot.getId()[1]+1);
 			}
 			break;
 		case 'n'://to upper
-			if (robot.getId()[1] == 0)
+			if (robot.getId()[0] == 0)
 				return 0;
 			else{
 				switch(robDirection){
@@ -134,11 +134,11 @@ public class Board{
 				break;
 				default: return 0;
 				}
-				robot.setId(robot.getId()[0], robot.getId()[1]-1);
+				robot.setId(robot.getId()[0]-1, robot.getId()[1]);
 			}
 			break;
 		case 's'://to lower
-			if (robot.getId()[1] == this.size-1)
+			if (robot.getId()[0] == this.size-1)
 				return 0;
 			else{
 				switch(robDirection){
@@ -152,7 +152,7 @@ public class Board{
 				break;
 				default: return 0;
 				}
-				robot.setId(robot.getId()[0], robot.getId()[1]+1);
+				robot.setId(robot.getId()[0]+1, robot.getId()[1]);
 			}
 			break;
 		default: return 0;
