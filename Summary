@@ -3,7 +3,7 @@ Assignment 1
 
 n*n board cleaning wich several obstacles and dirties 
 
-Robot Actions: 	Susck: 10 energy
+Robot Actions: 	Suck: 10 energy
 				Right: turn right 20 energy
 				Left:  turn left 20 energy
 				Move:  Move front 50 energy
