@@ -9,7 +9,7 @@ public class DoublyLinkedList {
 		StateNode next;
 		
 		//Constructor
-		public StateNode(State current, StateNode next, StateNode pre){
+		public StateNode(State current, StateNode pre, StateNode next){
 			this.ele = current;
 			this.next = next;
 			this.previous = pre;
@@ -136,6 +136,45 @@ public class DoublyLinkedList {
 			return flag;
 		}
 	}
+	
+	public String toString() {
+	    StringBuilder sb = new StringBuilder("(");
+	    StateNode walk = header.getNextNode();
+	    while (walk != tail) {
+	      sb.append(walk.getCur().getNumDirt());
+	      walk = walk.getNextNode();
+	      if (walk != tail)
+	        sb.append(", ");
+	    }
+	    sb.append(")");
+	    return sb.toString();
+	  }
+	
+//	public String toString(){
+//		if(isEmpty()){
+//			return "";
+//		}
+//		else{
+//			String s = "";
+//			StateNode temp = header;
+//			while(temp.getNextNode()!=tail){
+//				temp = temp.getNextNode();
+//				System.out.print(temp.getCur().getNumDirt());
+//				System.out.print(" ");
+//				System.out.print(temp.getCur().getEnergyCost());
+//				System.out.print(" ");
+//				System.out.print(temp.getCur().getRobot()[0]);
+//				System.out.print(temp.getCur().getRobot()[1]);
+//				System.out.print(" ");
+//				System.out.print(temp.getCur().getRobotDir());
+//				System.out.print(" ");
+//				System.out.print(temp.getCur().getMoveInDir());
+//				System.out.println();
+//			}
+//			
+//			return s;
+//		}
+//	}
 }
 
 

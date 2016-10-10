@@ -3,7 +3,7 @@ import java.lang.StringBuffer;
 public class Cell {
 	private boolean isObstacle;
 	private boolean hasDirt;
-	private int[] id;
+	private int[] id = new int[2];
 	
 	public Cell(){
 		id = new int[2];
