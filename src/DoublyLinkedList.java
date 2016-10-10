@@ -142,24 +142,22 @@ public class DoublyLinkedList {
 			return "";
 		}
 		else{
-			String s = "";
+			StringBuffer s = new StringBuffer();
 			StateNode temp = header;
 			while(temp.getNextNode()!=tail){
 				temp = temp.getNextNode();
-				s=s + "Num of dirs: ";
-				s=s + temp.getCur().getNumDirt();
-				s=s + " Energy cost: ";
-				s=s + temp.getCur().getEnergyCost();
-				s=s + " Pos(";
-				s=s + temp.getCur().getRobot()[0];
-				s=s + temp.getCur().getRobot()[1];
-				s=s + ") Direction: ";
-				s=s + temp.getCur().getRobotDir();
-				s=s + " From: ";
-				s=s + temp.getCur().getMoveInDir();
-				s=s + "\n";
+				s=s.append("Num of dirs: ");
+				s=s.append(temp.getCur().getNumDirt());
+				s=s.append(" Energy cost: ");
+				s=s.append(temp.getCur().getEnergyCost());
+				s=s.append(" Pos(");
+				s=s.append(temp.getCur().getRobot()[0]);
+				s=s.append(temp.getCur().getRobot()[1]);
+				s=s.append(") Direction: ");
+				s=s.append(temp.getCur().getRobotDir());
+				s=s.append("\n");
 			}		
-			return s;
+			return s.toString();
 		}
 	}
 }

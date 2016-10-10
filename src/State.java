@@ -6,12 +6,12 @@ public class State {
 	int[] robot = new int[2];
 	int[][] dirtPos;
 	char robDirection;	
-	//save the coming position(for each position can have 'w,e,n,s')
-	char moveInDirection;
+
 	
-	public State(State pre,int numDirt, int[][] dirtPos, int energyCost, int[] robot, char robDirection, char moveInDirection){
+	public State(State pre,int numDirt, int[][] dirtPos, int energyCost, int[] robot, char robDirection){
 		this.pre = pre;
 		this.numDirt = numDirt;
+		this.dirtPos = new int[this.numDirt][2];
 		for(int i=0;i<numDirt;i++){
 			this.dirtPos[i][0] = dirtPos[i][0];
 			this.dirtPos[i][1] = dirtPos[i][1];
@@ -20,7 +20,6 @@ public class State {
 		this.robot[0] = robot[0];
 		this.robot[1] = robot[1];
 		this.robDirection = robDirection;
-		this.moveInDirection = moveInDirection;
 	}
 	
 	//getters
@@ -42,9 +41,7 @@ public class State {
 	public char getRobotDir(){
 		return robDirection;
 	}
-	public char getMoveInDir(){
-		return moveInDirection;
-	}
+
 	//setters
 	public void setPre(State pre){
 		this.pre = pre;
@@ -66,14 +63,19 @@ public class State {
 		this.robot[1] = robot.getId()[1];
 		this.robDirection = direction;
 	}
-	public void setMoveIn(char moveIn){
-		this.moveInDirection = moveIn;
-	}
+
 	
 	//Comparison
 	public boolean isTheSame(State other){
 		boolean flag = true;
-		if(this.numDirt != other.getNumDirt()){
+		if(pre !=null && other.getPre() != null){
+			if(this.pre.getRobot()[0] != other.pre.getRobot()[0] ||this.pre.getRobot()[1] != other.pre.getRobot()[1]){
+				flag = false;
+			}
+		}
+		else if(pre==null && other.getPre()==null){	
+		}
+		else{
 			flag = false;
 		}
 		if(this.energyCost != other.getEnergyCost()){
@@ -85,8 +87,15 @@ public class State {
 		if(this.robDirection != other.getRobotDir()){
 			flag = false;
 		}
-		if(this.moveInDirection != other.getMoveInDir()){
+		if(this.numDirt != other.getNumDirt()){
 			flag = false;
+		}
+		else{
+			for(int i=0;i<this.numDirt;i++){
+				if(this.dirtPos[i][0] != other.getDirtPos()[i][0] || this.dirtPos[i][1] != other.getDirtPos()[i][1]){
+					flag = false;
+				}
+			}
 		}
 		return flag;
 	}
