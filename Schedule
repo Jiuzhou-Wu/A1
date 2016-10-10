@@ -10,9 +10,6 @@ Works need to be determined:
 	
 TODO:
 
-	6. - BFS, - DFS
-	
-
 
 Jiuhzou:
 	to be done:
@@ -23,7 +20,8 @@ Jiuhzou:
 	2. class <doubleLinkedlist>
 		 inner node contains energy cost of initial to current	
 	3. class <queue>, class <stack>
-
+	6. - BFS, - DFS
+	
 Haolong:
 	working on:
 		generate position id array (for obstacle & dirts)
