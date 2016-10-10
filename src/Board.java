@@ -412,6 +412,10 @@ public class Board{
 		//
 			return childState;
 	}
+	
+	public int getSize(){
+		return this.size;
+	}
 }
 
 

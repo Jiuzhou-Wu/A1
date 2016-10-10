@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Test {
@@ -14,33 +15,20 @@ public class Test {
 		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
 		boardTest.randomSetDirt(3);
 		boardTest.randomSetObstacle(5);
-		boardTest.setDirt(0, 0);
-		boardTest.setObstacle(0, 0);
 		//search
 		//DFS
-		System.out.println("DEF Search: ");
-		State solution = DFS(boardTest);
-		int[][] dirtPositions = boardTest.getDirts();
-		for(int i = 0; i < boardTest.getDirts().length; i++){
-			
-			System.out.print("dirt at: ");
-			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
-		}
-		int[][] obstaclePositions = boardTest.getObstacles();
-		for(int i = 0; i < obstaclePositions.length; i++){
-			System.out.print("obstacle at: ");
-			System.out.println(obstaclePositions[i][0] + " " + obstaclePositions[i][1]);
-		}
-		System.out.println("BEF Search: ");
+		System.out.println("DFS: ");
+		State solution = DFS(boardTest);		
 		System.out.println(solution);
-		System.out.println("");
 		
 		//BFS
+		System.out.println("BFS: ");
 		solution = BFS(boardTest);
 		System.out.println(solution);
 		System.out.println("we are here 2");
 		
 		//A*
+		System.out.println("A*: ");
 		solution = Astar(boardTest);
 		System.out.println(solution);
 		System.out.println("we are here 3");
@@ -144,34 +132,45 @@ public class Test {
 				return temp;
 			}
 			else{
-				State child1 = board.children(temp,'w');
-				State child2 = board.children(temp,'e');
-				State child3 = board.children(temp,'n');
-				State child4 = board.children(temp,'s');
+				State[] child = new State[4];
+				child[0] = board.children(temp,'w');
+				child[1] = board.children(temp,'e');
+				child[2] = board.children(temp,'n');
+				child[3] = board.children(temp,'s');
 				//write heuristic function here to decide the order of children
 				//f(x) = g(x) + h(x)
 				//g(x) is the energy cost(already taken)
-				//Assume that h(x) is the sum of distance of reaching each point
-				if(child1 != null && !open.onList(child1) && !closed.onList(child1)){
-					open.push(child1);
+				//Assume that h(x) is the sum of distance of for the robot to connect each dirt point
+				int[] h = {-1,-1,-1,-1};
+				if(child[1] != null && !open.onList(child[1]) && !closed.onList(child[1])){
+					h[1] = child[1].getEnergyCost() + h(child[1],board.getSize());
 				}
-				if(child2 != null && !open.onList(child2) && !closed.onList(child2)){
-					open.push(child2);
+				if(child[2] != null && !open.onList(child[2]) && !closed.onList(child[2])){
+					h[2] = child[2].getEnergyCost() + h(child[2],board.getSize());
 				}
-				if(child3 != null && !open.onList(child3) && !closed.onList(child3)){
-					open.push(child3);
+				if(child[3] != null && !open.onList(child[3]) && !closed.onList(child[3])){
+					h[3] = child[3].getEnergyCost() + h(child[3],board.getSize());
 				}
-				if(child4 != null && !open.onList(child4) && !closed.onList(child4)){
-					open.push(child4);
+				if(child[4] != null && !open.onList(child[4]) && !closed.onList(child[4])){
+					h[4] = child[4].getEnergyCost() + h(child[4],board.getSize());
+				}
+				Arrays.sort(h);
+				for(int i=3;i>-1;i--){
+					if(h[i] != -1){
+						open.push(child[i]);
+					}
 				}
 			}
 		}
 		return null;
 	}
 	
-	public int h(State cur, int bound){
+	public static int h(State cur, int bound){
 		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
-		newb.
-		return 0;
+		newb.randomSetObstacle(0);
+		for(int i=0;i<cur.getNumDirt();i++){
+			newb.setDirt(cur.getDirtPos()[i][0], cur.getDirtPos()[i][1]);
+		}
+		return BFS(newb).getEnergyCost();
 	}
 }
