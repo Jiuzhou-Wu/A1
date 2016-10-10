@@ -16,12 +16,13 @@ TODO:
 
 Jiuhzou:
 	to be done:
-	3. class <queue>, class <stack>
+	
 	
 	Done:
 	1. class State
 	2. class <doubleLinkedlist>
 		 inner node contains energy cost of initial to current	
+	3. class <queue>, class <stack>
 
 Haolong:
 	working on:
