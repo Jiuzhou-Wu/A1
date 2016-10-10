@@ -44,7 +44,7 @@ public class Test {
 	public static DoublyLinkedList DFS(Board board){
 		Stack open = new Stack();
 		DoublyLinkedList closed = new DoublyLinkedList();
-		State initial = new State(board.numOfDirt, 0, board.getRobotPosition(), board.getRobotDirection(), 's');
+		State initial = new State(board.numOfDirt, board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection(), 's');
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();

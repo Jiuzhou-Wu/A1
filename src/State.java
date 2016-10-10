@@ -1,5 +1,6 @@
 
 public class State {
+	State pre;
 	int numDirt;
 	int energyCost; 
 	int[] robot = new int[2];
@@ -8,7 +9,8 @@ public class State {
 	//save the coming position(for each position can have 'w,e,n,s')
 	char moveInDirection;
 	
-	public State(int numDirt, int[][] dirtPos, int energyCost, int[] robot, char robDirection, char moveInDirection){
+	public State(State pre,int numDirt, int[][] dirtPos, int energyCost, int[] robot, char robDirection, char moveInDirection){
+		this.pre = pre;
 		this.numDirt = numDirt;
 		for(int i=0;i<numDirt;i++){
 			this.dirtPos[i][0] = dirtPos[i][0];
@@ -22,8 +24,14 @@ public class State {
 	}
 	
 	//getters
+	public State getPre(){
+		return pre;
+	}
 	public int getNumDirt(){
 		return numDirt;
+	}
+	public int[][] getDirtPos(){
+		return dirtPos;
 	}
 	public int getEnergyCost(){
 		return energyCost;
@@ -38,6 +46,15 @@ public class State {
 		return moveInDirection;
 	}
 	//setters
+	public void setPre(State pre){
+		this.pre = pre;
+	}
+	public void setDirtPos(int[][] pos){
+		for(int i=0; i<pos.length;i++){
+			this.dirtPos[i][0]= pos[i][0];
+			this.dirtPos[i][1]= pos[i][1];
+		}
+	}
 	public void setNumDirt(int num){
 		this.numDirt = num;
 	}
