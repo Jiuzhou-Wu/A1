@@ -267,11 +267,17 @@ public class Board{
 				System.out.println("Tried to add a dirt. This position already has a dirt. No new dirt added.");
 				return false;
 			}
+			
+		}
+		for(int index = 0; index < this.numOfObstacle; index++){
 			if(this.obstaclePositions[index][0] == getAt(i, j).getId()[0] && this.obstaclePositions[index][1] == getAt(i, j).getId()[1]){
 				System.out.println("Tried to add a dirt. This position already has a obstacle. No new dirt added.");
 				return false;
 			}
+			
 		}
+		
+		
 		
 		int[] position = {i, j};
 		board[i][j].setDirt(true);
@@ -306,10 +312,16 @@ public class Board{
 				System.out.println("Tried to add a obstacle. This position already has a dirt. No new obstacle added.");
 				return false;
 			}
+			
+		}
+		
+		
+		for(int index = 0; index < this.numOfObstacle; index++){
 			if(this.obstaclePositions[index][0] == getAt(i, j).getId()[0] && this.obstaclePositions[index][1] == getAt(i, j).getId()[1]){
 				System.out.println("Tried to add a obstacle. This position already has a obstacle. No new obstacle added.");
 				return false;
 			}
+			
 		}
 		
 		int[] position = {i, j};
