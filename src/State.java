@@ -47,4 +47,25 @@ public class State {
 	public void setMoveIn(char moveIn){
 		this.moveInDirection = moveIn;
 	}
+	
+	//Comparison
+	public boolean isTheSame(State other){
+		boolean flag = true;
+		if(this.numDirt != other.getNumDirt()){
+			flag = false;
+		}
+		if(this.energyCost != other.getEnergyCost()){
+			flag = false;
+		}
+		if(this.robot[0] != other.getRobot()[0] || this.robot[1] != other.getRobot()[1]){
+			flag = false;
+		}
+		if(this.robDirection != other.getRobotDir()){
+			flag = false;
+		}
+		if(this.moveInDirection != other.getMoveInDir()){
+			flag = false;
+		}
+		return flag;
+	}
 }

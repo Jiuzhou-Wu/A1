@@ -117,6 +117,25 @@ public class DoublyLinkedList {
 			return remove(this.tail.getPreNode());
 		}
 	}
+	
+	//Comparison
+	public boolean onList(State other){
+		if(isEmpty()){
+			return false;
+		}
+		else{
+			boolean flag = false;
+			StateNode temp = header;
+			while(temp.getNextNode()!=tail){
+				temp = temp.getNextNode();
+				if(temp.getCur().isTheSame(other)){
+					flag = true;
+					break;
+				}
+			}
+			return flag;
+		}
+	}
 }
 
 
