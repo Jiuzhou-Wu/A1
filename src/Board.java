@@ -8,13 +8,14 @@ public class Board{
 	private Cell robot;
 	private char robotDirection;
 	
+	int numOfDirt;
 	private int[][] dirtPositions;
 	private int[][] obstaclePositions;
 	
 	//Constructor **************************************************
 	//generate a board with size*size
 	public Board(int size, int robX, int robY, char direction){
-		
+		numOfDirt = 0;
 		switch(direction){
 		case 'w':
 			break;
@@ -159,7 +160,20 @@ public class Board{
 
 	public int suck(){
 		Cell robPosition = this.getAt(robot.getId()[0], robot.getId()[1]);
+		int index = 0;
+		//int[][] newDirtPositions;
 		if(robPosition.isDirt()){
+			for(int i = 0; i < this.numOfDirt; i++){
+				if(dirtPositions[i][0] == robPosition.getId()[0] && dirtPositions[i][1] == robPosition.getId()[1]){
+					index = i;
+					break;
+				}
+			}
+			while(index<this.numOfDirt-1){
+				dirtPositions[index] = dirtPositions[index+1];
+				index++;
+			}
+			this.numOfDirt--;
 			return 10;
 		}else{
 			return 0;
@@ -167,10 +181,29 @@ public class Board{
 	}
 	
 	public void randomSetDirt(int numOfDirt){
-		this.dirtPositions = getRandomPosition(numOfDirt);
-		for(int i = 0; i < numOfDirt; i++){
-			setDirtAt(dirtPositions[i][0], dirtPositions[i][1]);
+		if(this.numOfDirt == 0){
+			this.numOfDirt = numOfDirt;
+			this.dirtPositions = getRandomPosition(numOfDirt);
+			for(int i = 0; i < numOfDirt; i++){
+				setDirtAt(dirtPositions[i][0], dirtPositions[i][1]);
+			}
+		}else{
+			
+			int[][] newPositions = new int[this.numOfDirt+numOfDirt][2];
+			for(int i = 0; i < this.numOfDirt; i++){
+				newPositions[i] = this.dirtPositions[i];
+			}
+			int[][] tempPositions = getRandomPosition(numOfDirt);
+			for(int i = this.numOfDirt; i < this.numOfDirt+numOfDirt; i++){
+				newPositions[i] = tempPositions[i-this.numOfDirt];
+				setDirtAt(tempPositions[i-this.numOfDirt][0], tempPositions[i-this.numOfDirt][1]);
+			}
+			
+			this.dirtPositions = newPositions;
+			
+			this.numOfDirt += numOfDirt;
 		}
+		
 	}
 	public void randomSetObstacle(int numOfObstacle){
 		this.obstaclePositions = getRandomPosition(numOfObstacle);
@@ -179,19 +212,44 @@ public class Board{
 		}
 	}
 	public boolean setObstacleAt(int i, int j){
-		Cell target = getAt(i, j);
-		if (target.getId()[0] == -1)
-				return false;
 		
 		board[i][j].setObstacle(true);
 		return true;
 	}
+
 	public boolean setDirtAt(int i, int j){
 		Cell target = getAt(i, j);
 		if (target.getId()[0] == -1)
 				return false;
 		
-		board[i][j].setDirt(true);;
+		board[i][j].setDirt(true);
+		return true;
+	}
+	
+	public boolean setDirt(int i, int j){
+		int[] position = {i, j};
+		board[i][j].setDirt(true);
+		if(this.numOfDirt == 0){
+			dirtPositions = new int[1][2];
+			dirtPositions[0] = position;
+			this.numOfDirt ++;
+			
+			//System.out.println(this.numOfDirt);
+			
+			return true;
+		}
+			
+		int[][] newPositions = new int[++this.numOfDirt][2];
+		
+		newPositions[this.numOfDirt-1] = position; 
+		
+		for(int index = 0; index < this.numOfDirt-1; index++){
+			newPositions[index] = this.dirtPositions[index];
+		}
+		this.dirtPositions = newPositions;
+		
+		this.numOfDirt ++;
+		
 		return true;
 	}
 	public int[][] getRandomPosition(int num){

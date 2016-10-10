@@ -21,20 +21,38 @@ public class RobotApp {
 		char robotInitializeDirection = 'w';
 	
 		Board boardTest = new Board(boradSize, robotInitializeX, robotInitializeY, robotInitializeDirection);
+		
+		boardTest.setDirt(0, 0);
+		
+		
+		
 		boardTest.randomSetDirt(3);
 		boardTest.randomSetObstacle(5);
 		///*
+		System.out.println("num of dirt is: " + boardTest.numOfDirt);
 		int[][] dirtPositions = boardTest.getDirts();
-		int[][] obstaclePositions = boardTest.getObstacles();
-		for(int i = 0; i < dirtPositions.length; i++){
+		for(int i = 0; i < boardTest.getDirts().length; i++){
 			
 			System.out.print("dirt at: ");
 			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
 		}
+		
+		
+		int[][] obstaclePositions = boardTest.getObstacles();
 		for(int i = 0; i < obstaclePositions.length; i++){
 			System.out.print("obstacle at: ");
 			System.out.println(obstaclePositions[i][0] + " " + obstaclePositions[i][1]);
 		}
+		
+		
+		System.out.println(boardTest.suck());
+		dirtPositions = boardTest.getDirts();
+		for(int i = 0; i < boardTest.getDirts().length; i++){
+			
+			System.out.print("dirt at: ");
+			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
+		}
+		System.out.println("num of dirt is: " + boardTest.numOfDirt);
 		//*/
 	//search
 		
