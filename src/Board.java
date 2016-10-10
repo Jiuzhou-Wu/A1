@@ -392,10 +392,19 @@ public class Board{
 	public State children(State cur, char action ){
 		//save board state as initialized
 		int tempNumOfDirt = this.numOfDirt;
-		int[] tempRobotPosition = this.robot.getId();
+		
+		int[] tempRobotPosition = new int[2];
+		tempRobotPosition[0] = this.robot.getId()[0]; 
+		tempRobotPosition[1] = this.robot.getId()[1];		
+		
 		char tempDirection = this.robotDirection;
-		int[][] tempDirtPositions = this.dirtPositions;
-				
+		
+		int[][] tempDirtPositions = new int[this.dirtPositions.length][2];
+		for(int i = 0; i < this.dirtPositions.length; i++){
+			tempDirtPositions[i][0] = this.dirtPositions[i][0];
+			tempDirtPositions[i][1] = this.dirtPositions[i][1];
+		}
+		
 		//put cur state on the board
 		this.numOfDirt = cur.getNumDirt();
 		this.robot.setId(cur.getRobot()[0], cur.getRobot()[1]);
@@ -428,22 +437,6 @@ public class Board{
 	
 	public int getSize(){
 		return this.size;
-	}
-	
-	public void reset(State cur){
-//		System.out.println(cur);
-//		Scanner s = new Scanner(System.in);
-//		int a = s.nextInt();
-//		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
-//		newb.randomSetObstacle(0);
-//		System.out.println(cur.getNumDirt());
-		this.dirtPositions = new int[0][2];
-		for(int i=0;i<cur.getNumDirt();i++){
-//			System.out.println(cur.getDirtPos()[i][0] + " " + cur.getDirtPos()[i][1]);
-			this.setDirt(cur.getDirtPos()[i][0], cur.getDirtPos()[i][1]);
-		}
-		this.robot.setId(cur.getRobot()[0], cur.getRobot()[1]);
-		this.robotDirection = cur.getRobotDir();
 	}
 }
 
