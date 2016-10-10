@@ -5,13 +5,13 @@ public class Test {
 
 	public static void main(String[] args) {
 		//generate board
-		int boradSize = 10;
+		int boradSize = 4;
 		int robotInitializeX = 0;
 		int robotInitializeY = 0;
 		char robotInitializeDirection = 'w';
 	
 		Board boardTest = new Board(boradSize, robotInitializeX, robotInitializeY, robotInitializeDirection);
-		
+		State initial = new State(null,boardTest.getNumOfDirt(), boardTest.getDirts(), 0, boardTest.getRobotPosition(), boardTest.getRobotDirection());
 		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
 		boardTest.randomSetDirt(3);
 		boardTest.randomSetObstacle(5);
@@ -22,12 +22,14 @@ public class Test {
 		System.out.println(solution);
 		
 		//BFS
+		boardTest.reset(initial);
 		System.out.println("BFS: ");
 		solution = BFS(boardTest);
 		System.out.println(solution);
 		System.out.println("we are here 2");
 		
 		//A*
+		boardTest.reset(initial);
 		System.out.println("A*: ");
 		solution = Astar(boardTest);
 		System.out.println(solution);
@@ -58,6 +60,7 @@ public class Test {
 		Stack open = new Stack();
 		Stack closed = new Stack();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
+		System.out.println(initial);
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
@@ -91,6 +94,7 @@ public class Test {
 		Queue open = new Queue();
 		Queue closed = new Queue();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
+		System.out.println(initial);
 		open.enqueue(initial);;
 		while(!open.isEmpty()){
 			State temp = open.dequeue();
@@ -124,6 +128,15 @@ public class Test {
 		Stack open = new Stack();
 		Stack closed = new Stack();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
+		System.out.println(initial);
+		System.out.println("num of dirt is: " + board.getNumOfDirt());
+		int[][] dirtPositions = board.getDirts();
+		for(int i = 0; i < board.getDirts().length; i++){
+			
+			System.out.print("dirt at: ");
+			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
+		}
+		
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
@@ -142,6 +155,9 @@ public class Test {
 				//g(x) is the energy cost(already taken)
 				//Assume that h(x) is the sum of distance of for the robot to connect each dirt point
 				int[] h = {-1,-1,-1,-1};
+				if(child[0] != null && !open.onList(child[0]) && !closed.onList(child[0])){
+					h[0] = child[0].getEnergyCost() + h(child[0],board.getSize());
+				}
 				if(child[1] != null && !open.onList(child[1]) && !closed.onList(child[1])){
 					h[1] = child[1].getEnergyCost() + h(child[1],board.getSize());
 				}
@@ -150,9 +166,6 @@ public class Test {
 				}
 				if(child[3] != null && !open.onList(child[3]) && !closed.onList(child[3])){
 					h[3] = child[3].getEnergyCost() + h(child[3],board.getSize());
-				}
-				if(child[4] != null && !open.onList(child[4]) && !closed.onList(child[4])){
-					h[4] = child[4].getEnergyCost() + h(child[4],board.getSize());
 				}
 				Arrays.sort(h);
 				for(int i=3;i>-1;i--){
@@ -166,9 +179,14 @@ public class Test {
 	}
 	
 	public static int h(State cur, int bound){
+		System.out.println(cur);
+		Scanner s = new Scanner(System.in);
+		int a = s.nextInt();
 		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
 		newb.randomSetObstacle(0);
+//		System.out.println(cur.getNumDirt());
 		for(int i=0;i<cur.getNumDirt();i++){
+//			System.out.println(cur.getDirtPos()[i][0] + " " + cur.getDirtPos()[i][1]);
 			newb.setDirt(cur.getDirtPos()[i][0], cur.getDirtPos()[i][1]);
 		}
 		return BFS(newb).getEnergyCost();

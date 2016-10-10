@@ -1,5 +1,6 @@
 
 import java.lang.StringBuffer;
+import java.util.Scanner;
 
 public class Board{
 	private Cell[][] board;
@@ -427,6 +428,22 @@ public class Board{
 	
 	public int getSize(){
 		return this.size;
+	}
+	
+	public void reset(State cur){
+//		System.out.println(cur);
+//		Scanner s = new Scanner(System.in);
+//		int a = s.nextInt();
+//		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
+//		newb.randomSetObstacle(0);
+//		System.out.println(cur.getNumDirt());
+		this.dirtPositions = new int[0][2];
+		for(int i=0;i<cur.getNumDirt();i++){
+//			System.out.println(cur.getDirtPos()[i][0] + " " + cur.getDirtPos()[i][1]);
+			this.setDirt(cur.getDirtPos()[i][0], cur.getDirtPos()[i][1]);
+		}
+		this.robot.setId(cur.getRobot()[0], cur.getRobot()[1]);
+		this.robotDirection = cur.getRobotDir();
 	}
 }
 

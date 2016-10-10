@@ -79,10 +79,12 @@ public class DoublyLinkedList {
 	//setters
 	//adding nodes
 	public void addBetween(State cur, StateNode pre, StateNode next){
-		StateNode newState = new StateNode(cur,pre,next);
-		pre.setNext(newState);
-		next.setPre(newState);
-		size++;
+		if(cur != null){
+			StateNode newState = new StateNode(cur,pre,next);
+			pre.setNext(newState);
+			next.setPre(newState);
+			size++;
+		}
 	}
 	
 	public void addLast(State cur){
@@ -93,13 +95,18 @@ public class DoublyLinkedList {
 		addBetween(cur, this.header, this.header.getNextNode());
 	}
 	//removing nodes
-	public State remove(StateNode cur){		
-		cur.getPreNode().setNext(cur.getNextNode());
-		cur.getNextNode().setPre(cur.getPreNode());
-		cur.setNext(null);
-		cur.setPre(null);
-		size--;
-		return cur.getCur();
+	public State remove(StateNode cur){	
+		if(this.isEmpty()){
+			return null;
+		}
+		else{
+			cur.getPreNode().setNext(cur.getNextNode());
+			cur.getNextNode().setPre(cur.getPreNode());
+			cur.setNext(null);
+			cur.setPre(null);
+			size--;
+			return cur.getCur();
+		}
 	}
 	
 	public State removeFirst(){
@@ -122,7 +129,7 @@ public class DoublyLinkedList {
 	
 	//Comparison
 	public boolean onList(State other){
-		if(isEmpty()){
+		if(this.isEmpty()||other==null){
 			return false;
 		}
 		else{
