@@ -392,10 +392,19 @@ public class Board{
 	public State children(State cur, char action ){
 		//save board state as initialized
 		int tempNumOfDirt = this.numOfDirt;
-		int[] tempRobotPosition = this.robot.getId();
+		
+		int[] tempRobotPosition = new int[2];
+		tempRobotPosition[0] = this.robot.getId()[0]; 
+		tempRobotPosition[1] = this.robot.getId()[1];		
+		
 		char tempDirection = this.robotDirection;
-		int[][] tempDirtPositions = this.dirtPositions;
-				
+		
+		int[][] tempDirtPositions = new int[this.dirtPositions.length][2];
+		for(int i = 0; i < this.dirtPositions.length; i++){
+			tempDirtPositions[i][0] = this.dirtPositions[i][0];
+			tempDirtPositions[i][1] = this.dirtPositions[i][1];
+		}
+		
 		//put cur state on the board
 		this.numOfDirt = cur.getNumDirt();
 		this.robot.setId(cur.getRobot()[0], cur.getRobot()[1]);
