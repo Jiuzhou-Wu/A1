@@ -26,6 +26,11 @@ public class Test {
 		System.out.println(solution);
 		System.out.println("we are here 2");
 		
+		//A*
+		solution = Astar(boardTest);
+		System.out.println(solution);
+		System.out.println("we are here 3");
+		
 //		// TODO Auto-generated method stub
 //		DoublyLinkedList l= new DoublyLinkedList();
 //		int[] pos = {1,1};
@@ -45,7 +50,8 @@ public class Test {
 //		System.out.println(l.onList(new State(null, 3,dirtPos, 0, pos,'s')));
 		
 	}
-
+	
+	//DFS with stack
 	public static State DFS(Board board){
 		Stack open = new Stack();
 		Stack closed = new Stack();
@@ -78,7 +84,7 @@ public class Test {
 		}
 		return null;
 	}
-	
+	//BFS with queue
 	public static State BFS(Board board){
 		Queue open = new Queue();
 		Queue closed = new Queue();
@@ -110,5 +116,48 @@ public class Test {
 			}
 		}
 		return null;
+	}
+	//A* with stack and heuristic function
+	public static State Astar(Board board){
+		Stack open = new Stack();
+		Stack closed = new Stack();
+		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
+		open.addLast(initial);
+		while(!open.isEmpty()){
+			State temp = open.pop();
+			closed.addLast(temp);
+			if(temp.getNumDirt()==0){
+				return temp;
+			}
+			else{
+				State child1 = board.children(temp,'w');
+				State child2 = board.children(temp,'e');
+				State child3 = board.children(temp,'n');
+				State child4 = board.children(temp,'s');
+				//write heuristic function here to decide the order of children
+				//f(x) = g(x) + h(x)
+				//g(x) is the energy cost(already taken)
+				//Assume that h(x) is the sum of distance of reaching each point
+				if(child1 != null && !open.onList(child1) && !closed.onList(child1)){
+					open.push(child1);
+				}
+				if(child2 != null && !open.onList(child2) && !closed.onList(child2)){
+					open.push(child2);
+				}
+				if(child3 != null && !open.onList(child3) && !closed.onList(child3)){
+					open.push(child3);
+				}
+				if(child4 != null && !open.onList(child4) && !closed.onList(child4)){
+					open.push(child4);
+				}
+			}
+		}
+		return null;
+	}
+	
+	public int h(State cur, int bound){
+		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
+		newb.
+		return 0;
 	}
 }
