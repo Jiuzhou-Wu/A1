@@ -78,9 +78,6 @@ public class State {
 		else{
 			flag = false;
 		}
-		if(this.energyCost != other.getEnergyCost()){
-			flag = false;
-		}
 		if(this.robot[0] != other.getRobot()[0] || this.robot[1] != other.getRobot()[1]){
 			flag = false;
 		}

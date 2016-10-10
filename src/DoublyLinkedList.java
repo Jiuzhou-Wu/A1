@@ -96,6 +96,8 @@ public class DoublyLinkedList {
 	public State remove(StateNode cur){		
 		cur.getPreNode().setNext(cur.getNextNode());
 		cur.getNextNode().setPre(cur.getPreNode());
+		cur.setNext(null);
+		cur.setPre(null);
 		size--;
 		return cur.getCur();
 	}
