@@ -74,7 +74,7 @@ public class Board{
 		return board[i][j];
 	}
 
-	public int moveTo(char action, char robDirection){
+	public int moveTo(char action){
 		//verify actions
 		int numChangeDirection = 0;
 		switch(action){
@@ -82,7 +82,7 @@ public class Board{
 			if (robot.getId()[1] == 0)
 				return 0;
 			else{
-				switch(robDirection){
+				switch(robotDirection){
 				case 'w': numChangeDirection = 0;
 				break;
 				case 'e': numChangeDirection = 2;
@@ -100,7 +100,7 @@ public class Board{
 			if (robot.getId()[1] == this.size-1)
 				return 0;
 			else{
-				switch(robDirection){
+				switch(robotDirection){
 				case 'w': numChangeDirection = 2;
 				break;
 				case 'e': numChangeDirection = 0;
@@ -118,7 +118,7 @@ public class Board{
 			if (robot.getId()[0] == 0)
 				return 0;
 			else{
-				switch(robDirection){
+				switch(robotDirection){
 				case 'w': numChangeDirection = 1;
 				break;
 				case 'e': numChangeDirection = 1;
@@ -136,7 +136,7 @@ public class Board{
 			if (robot.getId()[0] == this.size-1)
 				return 0;
 			else{
-				switch(robDirection){
+				switch(robotDirection){
 				case 'w': numChangeDirection = 1;
 				break;
 				case 'e': numChangeDirection = 1;
@@ -155,6 +155,7 @@ public class Board{
 		
 		//change direction cost 20 energy
 		//move forward cost 50 energy
+		robotDirection = action;
 		return 50 + 20*numChangeDirection;
 	}
 
