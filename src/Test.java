@@ -11,15 +11,29 @@ public class Test {
 	
 		Board boardTest = new Board(boradSize, robotInitializeX, robotInitializeY, robotInitializeDirection);
 		
-		boardTest.setDirt(0, 0);		
+		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
 		boardTest.randomSetDirt(3);
 		boardTest.randomSetObstacle(5);
-		
+		boardTest.setDirt(0, 0);
+		boardTest.setObstacle(0, 0);
 		//search
 		//DFS
+		System.out.println("DEF Search: ");
 		State solution = DFS(boardTest);
+		int[][] dirtPositions = boardTest.getDirts();
+		for(int i = 0; i < boardTest.getDirts().length; i++){
+			
+			System.out.print("dirt at: ");
+			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
+		}
+		int[][] obstaclePositions = boardTest.getObstacles();
+		for(int i = 0; i < obstaclePositions.length; i++){
+			System.out.print("obstacle at: ");
+			System.out.println(obstaclePositions[i][0] + " " + obstaclePositions[i][1]);
+		}
+		System.out.println("BEF Search: ");
 		System.out.println(solution);
-		System.out.println("we are here");
+		System.out.println("");
 		
 		//BFS
 		solution = BFS(boardTest);

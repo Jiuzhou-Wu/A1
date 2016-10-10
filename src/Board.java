@@ -9,6 +9,7 @@ public class Board{
 	private char robotDirection;
 	
 	private int numOfDirt;
+	private int numOfObstacle;
 	private int[][] dirtPositions;
 	private int[][] obstaclePositions;
 	
@@ -209,18 +210,48 @@ public class Board{
 		
 	}
 	public void randomSetObstacle(int numOfObstacle){
-		this.obstaclePositions = getRandomPosition(numOfObstacle);
-		for(int i = 0; i < numOfObstacle; i++){
-			setObstacleAt(obstaclePositions[i][0], obstaclePositions[i][1]);
+		
+		if(this.numOfObstacle == 0){
+			this.numOfObstacle = numOfObstacle;
+			this.obstaclePositions = getRandomPosition(this.numOfObstacle);
+			for(int i = 0; i < this.numOfObstacle; i++){
+				setDirtAt(this.obstaclePositions[i][0], this.obstaclePositions[i][1]);
+			}
+		}else{
+			
+			int[][] newPositions = new int[this.numOfObstacle+numOfObstacle][2];
+			for(int i = 0; i < this.numOfObstacle; i++){
+				newPositions[i] = this.obstaclePositions[i];
+			}
+			int[][] tempPositions = getRandomPosition(numOfObstacle);
+			for(int i = this.numOfObstacle; i < this.numOfObstacle+numOfObstacle; i++){
+				newPositions[i] = tempPositions[i-this.numOfObstacle];
+				setObstacleAt(tempPositions[i-this.numOfObstacle][0], tempPositions[i-this.numOfObstacle][1]);
+			}
+			
+			this.obstaclePositions = newPositions;
+			
+			this.numOfObstacle += numOfObstacle;
 		}
 	}
-	public boolean setObstacleAt(int i, int j){
+	/**
+	 * helper function for randomSetObstacle(int)
+	 * @param i, index for row
+	 * @param j, index for col
+	 * @return always returns true means set successfully 
+	 */
+	private boolean setObstacleAt(int i, int j){
 		
 		board[i][j].setObstacle(true);
 		return true;
 	}
-
-	public boolean setDirtAt(int i, int j){
+	/**
+	 * helper function for randomSetDirt(int)
+	 * @param i, index for row
+	 * @param j, index for col
+	 * @return always returns true means set successfully 
+	 */
+	private boolean setDirtAt(int i, int j){
 		Cell target = getAt(i, j);
 		if (target.getId()[0] == -1)
 				return false;
@@ -230,6 +261,18 @@ public class Board{
 	}
 	
 	public boolean setDirt(int i, int j){
+		
+		for(int index = 0; index < this.numOfDirt; index++){
+			if(this.dirtPositions[index][0] == getAt(i, j).getId()[0] && this.dirtPositions[index][1] == getAt(i, j).getId()[1]){
+				System.out.println("Tried to add a dirt. This position already has a dirt. No new dirt added.");
+				return false;
+			}
+			if(this.obstaclePositions[index][0] == getAt(i, j).getId()[0] && this.obstaclePositions[index][1] == getAt(i, j).getId()[1]){
+				System.out.println("Tried to add a dirt. This position already has a obstacle. No new dirt added.");
+				return false;
+			}
+		}
+		
 		int[] position = {i, j};
 		board[i][j].setDirt(true);
 		if(this.numOfDirt == 0){
@@ -251,10 +294,54 @@ public class Board{
 		}
 		this.dirtPositions = newPositions;
 		
-		this.numOfDirt ++;
+		//this.numOfDirt ++;
 		
 		return true;
 	}
+	
+	public boolean setObstacle(int i, int j){
+		
+		for(int index = 0; index < this.numOfDirt; index++){
+			if(this.dirtPositions[index][0] == getAt(i, j).getId()[0] && this.dirtPositions[index][1] == getAt(i, j).getId()[1]){
+				System.out.println("Tried to add a obstacle. This position already has a dirt. No new obstacle added.");
+				return false;
+			}
+			if(this.obstaclePositions[index][0] == getAt(i, j).getId()[0] && this.obstaclePositions[index][1] == getAt(i, j).getId()[1]){
+				System.out.println("Tried to add a obstacle. This position already has a obstacle. No new obstacle added.");
+				return false;
+			}
+		}
+		
+		int[] position = {i, j};
+		
+		if(this.robot.getId()[0] == position[0] && this.robot.getId()[1] == position[1]){
+			System.out.println("Robot is on this position, please try some other cells. No new obstacle added.");
+			return false;
+		}
+		
+		board[i][j].setObstacle(true);
+		if(this.numOfObstacle == 0){
+			obstaclePositions = new int[1][2];
+			obstaclePositions[0] = position;
+			this.numOfObstacle ++;
+			
+			//System.out.println(this.numOfDirt);
+			
+			return true;
+		}
+			
+		int[][] newPositions = new int[++this.numOfObstacle][2];
+		
+		newPositions[this.numOfObstacle-1] = position; 
+		
+		for(int index = 0; index < this.numOfObstacle-1; index++){
+			newPositions[index] = this.obstaclePositions[index];
+		}
+		this.obstaclePositions = newPositions;
+		
+		return true;
+	}
+	
 	public int[][] getRandomPosition(int num){
 		int[][] positions = new int[num][2];
 		for(int i = 0; i < num; i++){
