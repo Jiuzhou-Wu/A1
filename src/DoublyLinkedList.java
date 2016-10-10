@@ -135,46 +135,33 @@ public class DoublyLinkedList {
 			}
 			return flag;
 		}
+	}	
+	
+	public String toString(){
+		if(isEmpty()){
+			return "";
+		}
+		else{
+			String s = "";
+			StateNode temp = header;
+			while(temp.getNextNode()!=tail){
+				temp = temp.getNextNode();
+				s=s + "Num of dirs: ";
+				s=s + temp.getCur().getNumDirt();
+				s=s + " Energy cost: ";
+				s=s + temp.getCur().getEnergyCost();
+				s=s + " Pos(";
+				s=s + temp.getCur().getRobot()[0];
+				s=s + temp.getCur().getRobot()[1];
+				s=s + ") Direction: ";
+				s=s + temp.getCur().getRobotDir();
+				s=s + " From: ";
+				s=s + temp.getCur().getMoveInDir();
+				s=s + "\n";
+			}		
+			return s;
+		}
 	}
-	
-	public String toString() {
-	    StringBuilder sb = new StringBuilder("(");
-	    StateNode walk = header.getNextNode();
-	    while (walk != tail) {
-	      sb.append(walk.getCur().getNumDirt());
-	      walk = walk.getNextNode();
-	      if (walk != tail)
-	        sb.append(", ");
-	    }
-	    sb.append(")");
-	    return sb.toString();
-	  }
-	
-//	public String toString(){
-//		if(isEmpty()){
-//			return "";
-//		}
-//		else{
-//			String s = "";
-//			StateNode temp = header;
-//			while(temp.getNextNode()!=tail){
-//				temp = temp.getNextNode();
-//				System.out.print(temp.getCur().getNumDirt());
-//				System.out.print(" ");
-//				System.out.print(temp.getCur().getEnergyCost());
-//				System.out.print(" ");
-//				System.out.print(temp.getCur().getRobot()[0]);
-//				System.out.print(temp.getCur().getRobot()[1]);
-//				System.out.print(" ");
-//				System.out.print(temp.getCur().getRobotDir());
-//				System.out.print(" ");
-//				System.out.print(temp.getCur().getMoveInDir());
-//				System.out.println();
-//			}
-//			
-//			return s;
-//		}
-//	}
 }
 
 
