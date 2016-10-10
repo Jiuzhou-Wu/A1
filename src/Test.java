@@ -17,7 +17,7 @@ public class Test {
 		//search
 		//DFS
 		State solution = DFS(boardTest);			
-		
+		System.out.println("we are here");
 //		// TODO Auto-generated method stub
 //		DoublyLinkedList l= new DoublyLinkedList();
 //		int[] pos = {1,1};
@@ -41,7 +41,7 @@ public class Test {
 	public static State DFS(Board board){
 		Stack open = new Stack();
 		Stack closed = new Stack();
-		State initial = new State(null,board.numOfDirt, board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
+		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
@@ -49,10 +49,10 @@ public class Test {
 				return temp;
 			}
 			else{
-				State child1 = children(temp,'w');
-				State child2 = children(temp,'e');
-				State child3 = children(temp,'n');
-				State child4 = children(temp,'s');
+				State child1 = board.children(temp,'w');
+				State child2 = board.children(temp,'e');
+				State child3 = board.children(temp,'n');
+				State child4 = board.children(temp,'s');
 				closed.push(temp);
 				if(child1 != null && !open.onList(child1) && !closed.onList(child1)){
 					open.push(child1);

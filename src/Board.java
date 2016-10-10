@@ -8,7 +8,7 @@ public class Board{
 	private Cell robot;
 	private char robotDirection;
 	
-	int numOfDirt;
+	private int numOfDirt;
 	private int[][] dirtPositions;
 	private int[][] obstaclePositions;
 	
@@ -50,7 +50,9 @@ public class Board{
 	public int[][] getDirts(){
 		return dirtPositions;
 	}
-	
+	public int getNumOfDirt(){
+		return this.numOfDirt;
+	}
 	public int[][] getObstacles(){
 		return obstaclePositions;
 	}
@@ -285,6 +287,43 @@ public class Board{
 		}
 		
 		return positions;
+	}
+
+	public State children(State cur, char action ){
+		//save board state as initialized
+		int tempNumOfDirt = this.numOfDirt;
+		int[] tempRobotPosition = this.robot.getId();
+		char tempDirection = this.robotDirection;
+		int[][] tempDirtPositions = this.dirtPositions;
+				
+		//put cur state on the board
+		this.numOfDirt = cur.getNumDirt();
+		this.robot.setId(cur.getRobot()[0], cur.getRobot()[1]);
+		this.robotDirection = cur.getRobotDir();
+		this.dirtPositions = cur.getDirtPos();
+		
+		int cost = moveTo(action);
+		//boolean valid = true;
+		if(cost == 0){
+			this.numOfDirt = tempNumOfDirt;
+			this.robot.setId(tempRobotPosition[0], tempRobotPosition[1]);
+			this.robotDirection = tempDirection;
+			this.dirtPositions = tempDirtPositions;
+			return null;
+		}
+			
+		//check for dirt
+			cost += suck();
+		
+		State childState = new State(cur, this.numOfDirt, this.dirtPositions, cur.getEnergyCost()+cost, this.robot.getId(), this.robotDirection);
+		
+		//restart to initialized state
+		this.numOfDirt = tempNumOfDirt;
+		this.robot.setId(tempRobotPosition[0], tempRobotPosition[1]);
+		this.robotDirection = tempDirection;
+		this.dirtPositions = tempDirtPositions;
+		//
+			return childState;
 	}
 }
 
