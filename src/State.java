@@ -99,4 +99,19 @@ public class State {
 		}
 		return flag;
 	}
+	
+	public String toString(){
+		StringBuffer s = new StringBuffer();
+		s=s.append("Num of dirs: ");
+		s=s.append(getNumDirt());
+		s=s.append(" Energy cost: ");
+		s=s.append(getEnergyCost());
+		s=s.append(" Pos(");
+		s=s.append(getRobot()[0]);
+		s=s.append(getRobot()[1]);
+		s=s.append(") Direction: ");
+		s=s.append(getRobotDir());
+		s=s.append("\n");
+		return s.toString();
+	}
 }

@@ -18,6 +18,7 @@ public class Test {
 		//DFS
 		State solution = DFS(boardTest);			
 		System.out.println("we are here");
+		
 //		// TODO Auto-generated method stub
 //		DoublyLinkedList l= new DoublyLinkedList();
 //		int[] pos = {1,1};
@@ -33,7 +34,7 @@ public class Test {
 //		l.addFirst(s1);
 //		l.addLast(s2);
 //		l.addLast(s3);
-//		
+//		System.out.println(s3);
 //		System.out.println(l.onList(new State(null, 3,dirtPos, 0, pos,'s')));
 		
 	}
@@ -45,6 +46,7 @@ public class Test {
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
+			System.out.println(temp);
 			if(temp.getNumDirt()==0){
 				return temp;
 			}
