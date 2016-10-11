@@ -93,6 +93,9 @@ public class Board{
 				break;
 				default: return 0;
 				}
+				if(this.getAt(robot.getId()[0], robot.getId()[1]-1).isObstacle()){
+					return 0;
+				}
 				robot.setId(robot.getId()[0], robot.getId()[1]-1);
 			}
 			break;
@@ -110,6 +113,9 @@ public class Board{
 				case 's': numChangeDirection = 1;
 				break;
 				default: return 0;
+				}
+				if(this.getAt(robot.getId()[0], robot.getId()[1]+1).isObstacle()){
+					return 0;
 				}
 				robot.setId(robot.getId()[0], robot.getId()[1]+1);
 			}
@@ -129,6 +135,9 @@ public class Board{
 				break;
 				default: return 0;
 				}
+				if(this.getAt(robot.getId()[0]-1, robot.getId()[1]).isObstacle()){
+					return 0;
+				}
 				robot.setId(robot.getId()[0]-1, robot.getId()[1]);
 			}
 			break;
@@ -147,6 +156,9 @@ public class Board{
 				break;
 				default: return 0;
 				}
+				if(this.getAt(robot.getId()[0]+1, robot.getId()[1]).isObstacle()){
+					return 0;
+				}
 				robot.setId(robot.getId()[0]+1, robot.getId()[1]);
 			}
 			break;
@@ -161,9 +173,10 @@ public class Board{
 
 	public int suck(){
 		Cell robPosition = this.getAt(robot.getId()[0], robot.getId()[1]);
+		
 		int index = 0;
-		//int[][] newDirtPositions;
 		if(robPosition.isDirt()){
+//			System.out.println("we are here");
 			for(int i = 0; i < this.numOfDirt; i++){
 				if(dirtPositions[i][0] == robPosition.getId()[0] && dirtPositions[i][1] == robPosition.getId()[1]){
 					index = i;
@@ -185,11 +198,10 @@ public class Board{
 		if(this.numOfDirt == 0){
 			this.numOfDirt = numOfDirt;
 			this.dirtPositions = getRandomPosition(numOfDirt);
-			for(int i = 0; i < numOfDirt; i++){
-				setDirtAt(dirtPositions[i][0], dirtPositions[i][1]);
+			for(int i = 0; i < this.numOfDirt; i++){
+				this.setDirtAt(this.dirtPositions[i][0], this.dirtPositions[i][0]);
 			}
 		}else{
-			
 			int[][] newPositions = new int[this.numOfDirt+numOfDirt][2];
 			for(int i = 0; i < this.numOfDirt; i++){
 				newPositions[i] = this.dirtPositions[i];
@@ -212,7 +224,7 @@ public class Board{
 			this.numOfObstacle = numOfObstacle;
 			this.obstaclePositions = getRandomPosition(this.numOfObstacle);
 			for(int i = 0; i < this.numOfObstacle; i++){
-				setDirtAt(this.obstaclePositions[i][0], this.obstaclePositions[i][1]);
+				this.setObstacleAt(this.obstaclePositions[i][0], this.obstaclePositions[i][1]);
 			}
 		}else{
 			
@@ -377,6 +389,7 @@ public class Board{
 	}
 
 	public State children(State cur, char action ){
+		
 		//save board state as initialized
 		int tempNumOfDirt = this.numOfDirt;
 		
@@ -402,7 +415,7 @@ public class Board{
 			this.dirtPositions[i][0] = cur.getDirtPos()[i][0];
 			this.dirtPositions[i][1] = cur.getDirtPos()[i][1];
 		}
-				
+		
 		int cost = moveTo(action);
 		//boolean valid = true;
 		if(cost == 0){
@@ -415,11 +428,8 @@ public class Board{
 			
 		//check for dirt
 			cost += suck();
-		
 		State childState = new State(cur, this.numOfDirt, this.dirtPositions, cur.getEnergyCost()+cost, this.robot.getId(), this.robotDirection);
 		
-//		System.out.println(childState.getNumDirt());
-		//restart to initialized state
 		this.numOfDirt = tempNumOfDirt;
 		this.robot.setId(tempRobotPosition[0], tempRobotPosition[1]);
 		this.robotDirection = tempDirection;
