@@ -139,9 +139,26 @@ public class RobotApp {
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
 		open.addLast(initial);
 		while(!open.isEmpty()){
-			State temp = open.pop();
+			int min;
+			DoublyLinkedList tmp = new DoublyLinkedList();
+			min = open.top().getEnergyCost();
+			tmp.addFirst(open.pop());
+			while(!open.isEmpty()){
+				if(min > open.top().getEnergyCost()){
+					min = open.top().getEnergyCost();
+					tmp.addFirst(open.pop());
+				}
+				else{
+					tmp.addLast(open.pop());
+				}			
+			}
+			State temp = tmp.removeFirst();
+			
+			while(!tmp.isEmpty()){
+				open.push(tmp.removeLast());
+			}
 			closed.addLast(temp);
-			System.out.println(open);
+//			System.out.println(open);
 			if(temp.getNumDirt()==0){
 				return temp;
 			}
@@ -157,37 +174,22 @@ public class RobotApp {
 				//Assume that h(x) is the sum of distance of for the robot to connect each dirt point
 				int[] h = {-1,-1,-1,-1};
 				if(child[0] != null && !open.onList(child[0]) && !closed.onList(child[0])){
-					h[0] = child[0].getEnergyCost() + h(child[0],board.getSize());
+					open.push(child[0]);
 				}
 				if(child[1] != null && !open.onList(child[1]) && !closed.onList(child[1])){
-					h[1] = child[1].getEnergyCost() + h(child[1],board.getSize());
+					open.push(child[1]);
 				}
 				if(child[2] != null && !open.onList(child[2]) && !closed.onList(child[2])){
-					h[2] = child[2].getEnergyCost() + h(child[2],board.getSize());
+					open.push(child[2]);
 				}
 				if(child[3] != null && !open.onList(child[3]) && !closed.onList(child[3])){
-					h[3] = child[3].getEnergyCost() + h(child[3],board.getSize());
-				}
-				Arrays.sort(h);
-				for(int i=3;i>-1;i--){
-					System.out.println(h[i]);
-					if(h[i] > 0){
-						open.push(child[i]);
-					}
+					open.push(child[3]);
 				}
 			}
 		}
 		return null;
 	}
 	
-	public static int h(State cur, int bound){
-		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
-		newb.randomSetObstacle(0);
-		for(int i=0;i<cur.getNumDirt();i++){
-			newb.setDirt(cur.getDirtPos()[i][0], cur.getDirtPos()[i][1]);
-		}
-		return BFS(newb).getEnergyCost();
-	}
 	
 	public static void printSolution(State sol){
 		DoublyLinkedList s = new DoublyLinkedList();
