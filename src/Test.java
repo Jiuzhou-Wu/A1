@@ -46,8 +46,6 @@ public class Test {
 //		l.addFirst(s1);
 //		l.addLast(s2);
 //		l.addLast(s3);
-//		System.out.println(s3);
-//		System.out.println(l.onList(new State(null, 3,dirtPos, 0, pos,'s')));
 		
 	}
 	
@@ -56,6 +54,7 @@ public class Test {
 		Stack open = new Stack();
 		Stack closed = new Stack();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
+		System.out.println(initial);
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
@@ -89,7 +88,7 @@ public class Test {
 		Queue open = new Queue();
 		Queue closed = new Queue();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
-		open.enqueue(initial);;
+		open.enqueue(initial);
 		while(!open.isEmpty()){
 			State temp = open.dequeue();
 			closed.enqueue(temp);
@@ -122,6 +121,14 @@ public class Test {
 		Stack open = new Stack();
 		Stack closed = new Stack();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
+		System.out.println(initial);
+		System.out.println("num of dirt is: " + board.getNumOfDirt());
+		int[][] dirtPositions = board.getDirts();
+		for(int i = 0; i < board.getDirts().length; i++){
+			
+			System.out.print("dirt at: ");
+			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
+		}
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
@@ -164,16 +171,13 @@ public class Test {
 	}
 	
 	public static int h(State cur, int bound){
-//		System.out.println(cur);
-//		Scanner s = new Scanner(System.in);
-//		int a = s.nextInt();
 		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
 		newb.randomSetObstacle(0);
-//		System.out.println(cur.getNumDirt());
 		for(int i=0;i<cur.getNumDirt();i++){
-//			System.out.println(cur.getDirtPos()[i][0] + " " + cur.getDirtPos()[i][1]);
+			System.out.println(cur.getDirtPos()[i][0] + ", "+ cur.getDirtPos()[i][1]);
 			newb.setDirt(cur.getDirtPos()[i][0], cur.getDirtPos()[i][1]);
 		}
+		System.out.println();
 		return BFS(newb).getEnergyCost();
 	}
 }

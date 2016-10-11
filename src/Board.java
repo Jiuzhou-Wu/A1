@@ -70,10 +70,6 @@ public class Board{
 	public Cell getAt(int i, int j){
 		//check for parameters
 		//board[0..n-1][0..n-1]
-//		if (i >= size || j >= size){
-//			//System.out.println("Can't found cell at position ("+ i + ", "+ j+ ");");
-//			return new Cell();
-//		}		
 		//if parameters are valid
 		return board[i][j];
 	}
@@ -286,9 +282,6 @@ public class Board{
 			dirtPositions = new int[1][2];
 			dirtPositions[0] = position;
 			this.numOfDirt ++;
-			
-			//System.out.println(this.numOfDirt);
-			
 			return true;
 		}
 			
@@ -337,9 +330,6 @@ public class Board{
 			obstaclePositions = new int[1][2];
 			obstaclePositions[0] = position;
 			this.numOfObstacle ++;
-			
-			//System.out.println(this.numOfDirt);
-			
 			return true;
 		}
 			
