@@ -34,20 +34,26 @@ public class RobotApp {
 
 		//search
 		//DFS
+		long start = System.nanoTime();
 		System.out.println("DFS: ");
-		State solution = DFS(boardTest);		
-		printSolution(solution);
+		State solution = DFS(boardTest);	
+		long end = System.nanoTime();
+		printSolution(solution,end-start);
 		
 		//BFS
+		start = System.nanoTime();
 		System.out.println("BFS: ");
 		solution = BFS(boardTest);
-		printSolution(solution);
+		end = System.nanoTime();
+		printSolution(solution,end-start);
 		
 		//A*
+		start = System.nanoTime();
 		System.out.println("A*: ");
+		end = System.nanoTime();
 		solution = Astar(boardTest);
 		
-		printSolution(solution);
+		printSolution(solution,end-start);
 //		// TODO Auto-generated method stub
 //		DoublyLinkedList l= new DoublyLinkedList();
 //		int[] pos = {1,1};
@@ -191,14 +197,25 @@ public class RobotApp {
 	}
 	
 	
-	public static void printSolution(State sol){
+	public static void printSolution(State sol, long time){
+		int depth = 0;
+		int cost;
+		if(sol !=null){
+			cost = sol.getEnergyCost();
+		}
+		else {cost = 0;}
 		DoublyLinkedList s = new DoublyLinkedList();
 		while(sol!=null){
 			s.addFirst(sol);
 			sol = sol.getPre();
 		}
 		while(!s.isEmpty()){
+			depth++;
 			System.out.println(s.removeFirst());
 		}
+		
+		System.out.println("depth is " + depth);
+		System.out.println("total cost is " + cost);
+		System.out.println("time cost is " + time);
 	}
 }
