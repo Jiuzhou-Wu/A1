@@ -355,13 +355,15 @@ public class Board{
 			position[0] = (int)(Math.random()*size);
 			position[1] = (int)(Math.random()*size);
 			//check for duplicate
+			boolean duplicate = false;
 			for(int j = 0; j < i; j++){
 				if(positions[j][0] == position[0] && positions[j][1] == position[1]){
-					i--;
+					duplicate = true;
 					break;
 				}
 			}
-			if(this.getAt(position[0], position[1]).isDirt() 
+			if(duplicate 
+					|| this.getAt(position[0], position[1]).isDirt() 
 					|| this.getAt(position[0], position[1]).isObstacle()
 					|| (this.robot.getId()[0] == position[0] && this.robot.getId()[1] == position[1])){
 				i--;
