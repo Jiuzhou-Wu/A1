@@ -68,6 +68,7 @@ public class State {
 	//Comparison
 	public boolean isTheSame(State other){
 		boolean flag = true;
+		//check pre state position
 		if(pre !=null && other.getPre() != null){
 			if(this.pre.getRobot()[0] != other.pre.getRobot()[0] ||this.pre.getRobot()[1] != other.pre.getRobot()[1]){
 				flag = false;
@@ -78,12 +79,15 @@ public class State {
 		else{
 			flag = false;
 		}
+		// check robot position
 		if(this.robot[0] != other.getRobot()[0] || this.robot[1] != other.getRobot()[1]){
 			flag = false;
 		}
+		//check robot direction
 		if(this.robDirection != other.getRobotDir()){
 			flag = false;
 		}
+		
 		if(this.numDirt != other.getNumDirt()){
 			flag = false;
 		}
