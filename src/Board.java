@@ -396,8 +396,13 @@ public class Board{
 		this.numOfDirt = cur.getNumDirt();
 		this.robot.setId(cur.getRobot()[0], cur.getRobot()[1]);
 		this.robotDirection = cur.getRobotDir();
-		this.dirtPositions = cur.getDirtPos();
+		this.dirtPositions = new int[numOfDirt][2];
 		
+		for(int i = 0; i < this.dirtPositions.length; i++){
+			this.dirtPositions[i][0] = cur.getDirtPos()[i][0];
+			this.dirtPositions[i][1] = cur.getDirtPos()[i][1];
+		}
+				
 		int cost = moveTo(action);
 		//boolean valid = true;
 		if(cost == 0){
@@ -413,6 +418,7 @@ public class Board{
 		
 		State childState = new State(cur, this.numOfDirt, this.dirtPositions, cur.getEnergyCost()+cost, this.robot.getId(), this.robotDirection);
 		
+//		System.out.println(childState.getNumDirt());
 		//restart to initialized state
 		this.numOfDirt = tempNumOfDirt;
 		this.robot.setId(tempRobotPosition[0], tempRobotPosition[1]);
