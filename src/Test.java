@@ -147,6 +147,7 @@ public class Test {
 		while(!open.isEmpty()){
 			State temp = open.pop();
 			//System.out.println(temp);
+
 			closed.addLast(temp);
 			if(temp.getNumDirt()==0){
 				return temp;
