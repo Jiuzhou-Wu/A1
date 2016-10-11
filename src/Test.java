@@ -5,47 +5,48 @@ public class Test {
 
 	public static void main(String[] args) {
 		//generate board
-		int boradSize = 10;
+		int boradSize = 4;
 		int robotInitializeX = 0;
 		int robotInitializeY = 0;
 		char robotInitializeDirection = 'w';
 	
 		Board boardTest = new Board(boradSize, robotInitializeX, robotInitializeY, robotInitializeDirection);
-
-		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
-		boardTest.randomSetDirt(8);
-		boardTest.randomSetObstacle(5);
 		
-		for(int i = 0; i<boradSize; i++){
-			for(int j = 0; j<boradSize; j++){
-				if(boardTest.getAt(i, j).isDirt())
-					System.out.print("D");
-				else if(boardTest.getAt(i, j).isObstacle())
-					System.out.print("O");
-				else
-					System.out.print(" ");
-			}
-			System.out.println();
+		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
+		boardTest.randomSetDirt(3);
+		boardTest.randomSetObstacle(2);
+		
+		System.out.println("num of dirt is: " + boardTest.getNumOfDirt());
+		int[][] dirtPositions = boardTest.getDirts();
+		for(int i = 0; i < boardTest.getDirts().length; i++){
+			
+			System.out.print("dirt at: ");
+			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
 		}
-
+		
+//		int[][] dirtPositions = boardTest.getDirts();
+//		for(int i = 0; i < boardTest.getDirts().length; i++){
+//			
+//			System.out.print("dirt at: ");
+//			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
+//			System.out.println(boardTest.getAt(dirtPositions[i][0], dirtPositions[i][1]).isDirt());
+//		}
 		//search
 		//DFS
 		System.out.println("DFS: ");
-		State solution = DFS(boardTest);
-		System.out.println("The solution is: "); 
+		State solution = DFS(boardTest);		
 		printSolution(solution);
-//		
-//		//BFS
+		
+		//BFS
 		System.out.println("BFS: ");
 		solution = BFS(boardTest);
 		printSolution(solution);
-//		
+		
 		//A*
 		System.out.println("A*: ");
 		solution = Astar(boardTest);
+		
 		printSolution(solution);
-		
-		
 //		// TODO Auto-generated method stub
 //		DoublyLinkedList l= new DoublyLinkedList();
 //		int[] pos = {1,1};
@@ -105,7 +106,6 @@ public class Test {
 		open.enqueue(initial);
 		while(!open.isEmpty()){
 			State temp = open.dequeue();
-
 			closed.enqueue(temp);
 			if(temp.getNumDirt()==0){
 				return temp;
@@ -133,14 +133,15 @@ public class Test {
 	}
 	//A* with stack and heuristic function
 	public static State Astar(Board board){
-
 		Stack open = new Stack();
 		Stack closed = new Stack();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
-//			System.out.println(temp);
+
+			//System.out.println(temp);
+
 			closed.addLast(temp);
 			if(temp.getNumDirt()==0){
 				return temp;
