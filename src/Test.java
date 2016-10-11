@@ -11,7 +11,8 @@ public class Test {
 		char robotInitializeDirection = 'w';
 	
 		Board boardTest = new Board(boradSize, robotInitializeX, robotInitializeY, robotInitializeDirection);
-		
+
+
 		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
 		boardTest.randomSetDirt(3);
 		boardTest.randomSetObstacle(2);
@@ -23,6 +24,7 @@ public class Test {
 			System.out.print("dirt at: ");
 			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
 		}
+
 		//search
 		//DFS
 		System.out.println("DFS: ");
@@ -131,6 +133,7 @@ public class Test {
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
+
 			closed.addLast(temp);
 			if(temp.getNumDirt()==0){
 				return temp;
