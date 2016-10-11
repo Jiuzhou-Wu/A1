@@ -103,7 +103,7 @@ public class State {
 		s=s.append(getNumDirt());
 		s=s.append(" Energy cost: ");
 		s=s.append(getEnergyCost());
-		s=s.append(" Pos(");
+		s=s.append(" Robot Pos(");
 		s=s.append(getRobot()[0]);
 		s=s.append(getRobot()[1]);
 		s=s.append(") Direction: ");

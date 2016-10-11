@@ -13,24 +13,33 @@ public class Test {
 		Board boardTest = new Board(boradSize, robotInitializeX, robotInitializeY, robotInitializeDirection);
 		
 		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
-		boardTest.randomSetDirt(3);
+		boardTest.randomSetDirt(8);
 		boardTest.randomSetObstacle(5);
+		
+		System.out.println("num of dirt is: " + boardTest.getNumOfDirt());
+		int[][] dirtPositions = boardTest.getDirts();
+		for(int i = 0; i < boardTest.getDirts().length; i++){
+			
+			System.out.print("dirt at: ");
+			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
+		}
+		
 		//search
 		//DFS
 		System.out.println("DFS: ");
 		State solution = DFS(boardTest);		
-		System.out.println(solution);
+		printSolution(solution);
 		
 		//BFS
 		System.out.println("BFS: ");
 		solution = BFS(boardTest);
-		System.out.println(solution);
+		printSolution(solution);
 		
 		//A*
 		System.out.println("A*: ");
 		solution = Astar(boardTest);
-		System.out.println(solution);
 		
+		printSolution(solution);
 //		// TODO Auto-generated method stub
 //		DoublyLinkedList l= new DoublyLinkedList();
 //		int[] pos = {1,1};
@@ -54,7 +63,6 @@ public class Test {
 		Stack open = new Stack();
 		Stack closed = new Stack();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
-		System.out.println(initial);
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
@@ -121,14 +129,6 @@ public class Test {
 		Stack open = new Stack();
 		Stack closed = new Stack();
 		State initial = new State(null,board.getNumOfDirt(), board.getDirts(), 0, board.getRobotPosition(), board.getRobotDirection());
-		System.out.println(initial);
-		System.out.println("num of dirt is: " + board.getNumOfDirt());
-		int[][] dirtPositions = board.getDirts();
-		for(int i = 0; i < board.getDirts().length; i++){
-			
-			System.out.print("dirt at: ");
-			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
-		}
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
@@ -174,10 +174,19 @@ public class Test {
 		Board newb = new Board(bound, cur.getRobot()[0],cur.getRobot()[1], cur.getRobotDir());
 		newb.randomSetObstacle(0);
 		for(int i=0;i<cur.getNumDirt();i++){
-			System.out.println(cur.getDirtPos()[i][0] + ", "+ cur.getDirtPos()[i][1]);
 			newb.setDirt(cur.getDirtPos()[i][0], cur.getDirtPos()[i][1]);
 		}
-		System.out.println();
 		return BFS(newb).getEnergyCost();
+	}
+	
+	public static void printSolution(State sol){
+		DoublyLinkedList s = new DoublyLinkedList();
+		while(sol!=null){
+			s.addFirst(sol);
+			sol = sol.getPre();
+		}
+		while(!s.isEmpty()){
+			System.out.println(s.removeFirst());
+		}
 	}
 }
