@@ -5,7 +5,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		//generate board
-		int boradSize = 10;
+		int boradSize = 4;
 		int robotInitializeX = 0;
 		int robotInitializeY = 0;
 		char robotInitializeDirection = 'w';
@@ -13,8 +13,8 @@ public class Test {
 		Board boardTest = new Board(boradSize, robotInitializeX, robotInitializeY, robotInitializeDirection);
 
 		//random set dirt and obstacle, the parameter is the number of dirt or obstacles
-		boardTest.randomSetDirt(8);
-		boardTest.randomSetObstacle(5);
+		boardTest.randomSetDirt(3);
+		boardTest.randomSetObstacle(2);
 		
 		for(int i = 0; i<boradSize; i++){
 			for(int j = 0; j<boradSize; j++){
@@ -146,7 +146,7 @@ public class Test {
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
-			System.out.println(temp);
+			//System.out.println(temp);
 			closed.addLast(temp);
 			if(temp.getNumDirt()==0){
 				return temp;

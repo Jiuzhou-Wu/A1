@@ -415,7 +415,16 @@ public class Board{
 			this.dirtPositions[i][0] = cur.getDirtPos()[i][0];
 			this.dirtPositions[i][1] = cur.getDirtPos()[i][1];
 		}
+		for(int i = 0; i<this.size; i++){
+			for(int j = 0; j<this.size; j++){
+				this.getAt(i, j).setDirt(false);
+					
+			}
+		}
 		
+		for(int i = 0; i<this.numOfDirt; i++){
+			this.getAt(this.dirtPositions[i][0], this.dirtPositions[i][1]).setDirt(true);
+		}
 		int cost = moveTo(action);
 		//boolean valid = true;
 		if(cost == 0){
@@ -435,6 +444,16 @@ public class Board{
 		this.robotDirection = tempDirection;
 		this.dirtPositions = tempDirtPositions;
 		//
+		for(int i = 0; i<this.size; i++){
+			for(int j = 0; j<this.size; j++){
+				this.getAt(i, j).setDirt(false);
+					
+			}
+		}
+		
+		for(int i = 0; i<this.numOfDirt; i++){
+			this.getAt(this.dirtPositions[i][0], this.dirtPositions[i][1]).setDirt(true);
+		}
 			return childState;
 	}
 	
