@@ -23,14 +23,6 @@ public class Test {
 			System.out.print("dirt at: ");
 			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
 		}
-		
-//		int[][] dirtPositions = boardTest.getDirts();
-//		for(int i = 0; i < boardTest.getDirts().length; i++){
-//			
-//			System.out.print("dirt at: ");
-//			System.out.println(dirtPositions[i][0] + " " + dirtPositions[i][1]);
-//			System.out.println(boardTest.getAt(dirtPositions[i][0], dirtPositions[i][1]).isDirt());
-//		}
 		//search
 		//DFS
 		System.out.println("DFS: ");
@@ -139,9 +131,6 @@ public class Test {
 		open.addLast(initial);
 		while(!open.isEmpty()){
 			State temp = open.pop();
-
-			//System.out.println(temp);
-
 			closed.addLast(temp);
 			if(temp.getNumDirt()==0){
 				return temp;
